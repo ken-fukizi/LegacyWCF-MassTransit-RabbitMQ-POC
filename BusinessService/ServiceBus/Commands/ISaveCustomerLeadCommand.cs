@@ -5,7 +5,7 @@ using System;
 
 namespace BusinessService.ServiceBus.Commands
 {
-    internal interface ISaveCustomerLeadCommand
+    public interface ISaveCustomerLeadCommand
     {
         Guid CommandId { get; set; }
         DateTime? CreatedDate { get; set; }
