@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregateRoot.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Enumeration.cs" />
     <Compile Include="Exceptions\DomainException.cs" />

@@ -107,6 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="DomainModels\CustomerLeadAggregate\CreditScoreInfo.cs" />
+    <Compile Include="DomainModels\CustomerLeadAggregate\CustomerLeadRequest.cs" />
     <Compile Include="ITester.cs" />
     <Compile Include="Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
@@ -114,10 +116,11 @@
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBus\BrokerTopologyConfig.cs" />
+    <Compile Include="ServiceBus\Commands\SaveCustomerLeadCommand.cs" />
+    <Compile Include="ServiceModels\SaveCustomerLeadRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ServiceBus\Commands\" />
     <Folder Include="ServiceBus\Consumers\" />
     <Folder Include="ServiceBus\Events\" />
     <Folder Include="ServiceBus\Observers\" />
@@ -133,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="packages\MassTransit.Analyzers.6.2.1\analyzers\dotnet\cs\MassTransit.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedKernel\SharedKernel.csproj">
+      <Project>{552031f2-f0be-485f-a432-63554c8b5e33}</Project>
+      <Name>SharedKernel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
