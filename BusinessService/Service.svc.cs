@@ -4,9 +4,16 @@ namespace BusinessService
 {    
     public class Service : IService
     {
+        ITester _tester;
+        public Service(ITester tester)
+        {
+
+            _tester = tester;
+
+        }
         public string GetData(int value)
         {
-            return string.Format("You entered: {0}", value);
+            return _tester.Test(value);            
         }              
 
     }
