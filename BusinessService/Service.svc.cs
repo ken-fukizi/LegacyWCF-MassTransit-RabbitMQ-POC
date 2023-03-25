@@ -4,7 +4,7 @@ namespace BusinessService
 {    
     public class Service : IService
     {
-        ITester _tester;
+        readonly ITester _tester;
         public Service(ITester tester)
         {
 
