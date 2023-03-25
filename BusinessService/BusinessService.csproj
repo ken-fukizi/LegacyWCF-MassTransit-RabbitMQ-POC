@@ -139,6 +139,7 @@
     <Compile Include="ServiceBus\Observers\BusObserver.cs" />
     <Compile Include="ServiceBus\Observers\PublishObserver.cs" />
     <Compile Include="ServiceBus\Observers\ReceiveObserver.cs" />
+    <Compile Include="ServiceBus\Observers\SendObserver.cs" />
     <Compile Include="ServiceModels\SaveCustomerLeadRequest.cs" />
   </ItemGroup>
   <ItemGroup>
