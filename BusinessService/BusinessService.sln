@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessService", "BusinessService.csproj", "{D5F8DC15-3741-4EBF-868F-13B95B7FA872}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "..\SharedKernel\SharedKernel.csproj", "{552031F2-F0BE-485F-A432-63554C8B5E33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D5F8DC15-3741-4EBF-868F-13B95B7FA872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F8DC15-3741-4EBF-868F-13B95B7FA872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F8DC15-3741-4EBF-868F-13B95B7FA872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{552031F2-F0BE-485F-A432-63554C8B5E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{552031F2-F0BE-485F-A432-63554C8B5E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{552031F2-F0BE-485F-A432-63554C8B5E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{552031F2-F0BE-485F-A432-63554C8B5E33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
