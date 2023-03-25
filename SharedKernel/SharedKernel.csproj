@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity.cs" />
+    <Compile Include="Enumeration.cs" />
     <Compile Include="Exceptions\DomainException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\IRequest.cs" />
