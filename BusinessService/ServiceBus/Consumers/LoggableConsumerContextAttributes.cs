@@ -6,8 +6,7 @@ namespace BusinessService.ServiceBus.Consumers
     {
         public LoggableConsumerContextAttributes(ConsumeContext<T> consumeContext)
         {
-            this.ConsumeContext = consumeContext;
-            //RetryCount = consumeContext.GetRetryAttempt();
+            this.ConsumeContext = consumeContext;           
         }
         public ConsumeContext<T> ConsumeContext { get; private set; }
         public string MessageId { get { return this.ConsumeContext.MessageId.ToString(); } }
@@ -20,8 +19,7 @@ namespace BusinessService.ServiceBus.Consumers
         public string FaultAddress { get { return this.ConsumeContext.FaultAddress.ToString(); } }
         
         public string ExpirationTime { get { return this.ConsumeContext.ExpirationTime.ToString(); } }
-        public string Message { get { return this.ConsumeContext.Message.ToString(); } }  
-        //public int RetryCount { get; private set; }
+        public string Message { get { return this.ConsumeContext.Message.ToString(); } }         
         public int RetryCount { get { return this.ConsumeContext.GetRetryAttempt(); } }
     }
 }

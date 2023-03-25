@@ -136,12 +136,12 @@
     <Compile Include="ServiceBus\Consumers\ConsumeException.cs" />
     <Compile Include="ServiceBus\Consumers\LoggableConsumerContextAttributes.cs" />
     <Compile Include="ServiceBus\Consumers\SaveCustomerLeadCommandConsumer.cs" />
+    <Compile Include="ServiceBus\Observers\BusObserver.cs" />
     <Compile Include="ServiceModels\SaveCustomerLeadRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ServiceBus\Events\" />
-    <Folder Include="ServiceBus\Observers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
