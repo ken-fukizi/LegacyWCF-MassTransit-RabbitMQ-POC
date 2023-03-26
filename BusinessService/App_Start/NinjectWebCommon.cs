@@ -89,6 +89,8 @@ namespace BusinessService.App_Start
             kernel.Bind<IReceiveObserver>().To<ReceiveObserver>();
             kernel.Bind<IPublishObserver>().To<PublishObserver>();
             kernel.Bind<IBusObserver>().To<BusObserver>();
+
+            //addMassTransitHostedService
         }        
     }
 }

@@ -36,7 +36,7 @@ namespace BusinessService.ServiceBus
                 );
             try
             {
-                await _bus.Send<ISaveCustomerLeadCommand>
+                await _bus.Publish<ISaveCustomerLeadCommand>
                     (
                         new 
                         { 
