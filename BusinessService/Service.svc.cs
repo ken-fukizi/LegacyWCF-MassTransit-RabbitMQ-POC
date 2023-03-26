@@ -10,11 +10,11 @@ namespace BusinessService
         private readonly ITester _tester;
         private readonly ILogger<Service> _logger;
         private readonly ApplicationBus _applicationBus;
-        public Service(ITester tester, ILogger<Service> logger, ApplicationBus applicationBus)
+        public Service(ITester tester, ApplicationBus applicationBus)
         {
 
             _tester = tester;
-            _logger = logger;
+            //_logger = logger;
             _applicationBus = applicationBus;
 
         }
@@ -25,7 +25,7 @@ namespace BusinessService
 
         public SaveCustomerLeadResponse SaveCustomerLead(SaveCustomerLeadRequest customerLeadRequest)
         {
-            _logger.LogInformation($"Incoming customerLeadRequest {JsonConvert.SerializeObject(customerLeadRequest)} ");
+            //_logger.LogInformation($"Incoming customerLeadRequest {JsonConvert.SerializeObject(customerLeadRequest)} ");
             return _applicationBus.SendSaveCustomerLeadRequest(customerLeadRequest, new System.Threading.CancellationToken()).Result;
         }
     }

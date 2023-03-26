@@ -14,15 +14,15 @@ namespace BusinessService.ServiceBus
         private readonly ILogger<ApplicationBus> _logger;
         private readonly IBus _bus;
 
-        public ApplicationBus(ILogger<ApplicationBus> logger, IBus bus)
+        public ApplicationBus(IBus bus)
         {
-            _logger = logger;
+            //_logger = logger;
             _bus = bus;
         }
 
         public async Task<SaveCustomerLeadResponse> SendSaveCustomerLeadRequest(SaveCustomerLeadRequest SaveCustomerLeadRequest, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Starting {nameof(ApplicationBus)}.{nameof(SendSaveCustomerLeadRequest)}");
+            //_logger.LogInformation($"Starting {nameof(ApplicationBus)}.{nameof(SendSaveCustomerLeadRequest)}");
             var saveCustomerLeadResponse = new SaveCustomerLeadResponse();
             //Get futher information for the lead in a repository by ID, etc and append to the request
             // This is a deliberate example for composing a domain object
@@ -46,7 +46,7 @@ namespace BusinessService.ServiceBus
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Faliure to send {nameof(SaveCustomerLeadRequest)} to {nameof(ISaveCustomerLeadCommand)} . Ref; {string.Join(",", saveCustomerLeadResponse.CommandId)}");
+                //_logger.LogError(ex, $"Faliure to send {nameof(SaveCustomerLeadRequest)} to {nameof(ISaveCustomerLeadCommand)} . Ref; {string.Join(",", saveCustomerLeadResponse.CommandId)}");
                 saveCustomerLeadResponse.AddException(new SharedKernel.Exceptions.DomainException($"Faliure to send {nameof(SaveCustomerLeadRequest)} to {nameof(ISaveCustomerLeadCommand)} . Ref; {string.Join(",", saveCustomerLeadResponse.CommandId)}", ex));
             }
             return saveCustomerLeadResponse;

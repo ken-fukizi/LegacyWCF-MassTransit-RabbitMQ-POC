@@ -6,6 +6,10 @@ namespace BusinessService.App_Start
     using System;
     using System.Web;
     using BusinessService.ServiceBus;
+    using BusinessService.ServiceBus.Consumers;
+    using BusinessService.ServiceBus.Observers;
+    using MassTransit;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -43,8 +47,7 @@ namespace BusinessService.App_Start
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                //kernel.Bind<ITester>().To<Tester>();
+                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();                
 
                 RegisterServices(kernel);
                 return kernel;
@@ -62,8 +65,30 @@ namespace BusinessService.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ILoggerFactory>().ToConstant(LoggerFactory.Create(builder => { builder.AddConsole(); }));
+            kernel.Bind<ILogger>().ToProvider(typeof(Logger<>));
             kernel.Bind<ITester>().To<Tester>();
-            kernel.Bind<ApplicationBus>();
+            
+            kernel.Bind<IBus>().ToMethod(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
+            {
+                var host = cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
+                cfg.AutoDelete = true;
+                cfg.Durable = true;
+                
+                cfg.ReceiveEndpoint(host, "save_customer_lead", e =>
+                {
+                    e.Consumer<SaveCustomerLeadCommandConsumer>(kernel);
+                });
+            })).InSingletonScope();
+
+            kernel.Bind<ISendObserver>().To<SendObserver>();
+            kernel.Bind<IReceiveObserver>().To<ReceiveObserver>();
+            kernel.Bind<IPublishObserver>().To<PublishObserver>();
+            kernel.Bind<IBusObserver>().To<BusObserver>();
         }        
     }
 }

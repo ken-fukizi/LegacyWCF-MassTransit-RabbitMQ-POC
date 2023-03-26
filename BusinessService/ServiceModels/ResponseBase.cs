@@ -1,9 +1,11 @@
 ﻿using SharedKernel.Exceptions;
 using SharedKernel.Service;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace BusinessService.ServiceModels
 {
+    [DataContract]
     public class ResponseBase : IResponse
     {
         private readonly IList<DomainException> _domainExceptions;
@@ -17,6 +19,7 @@ namespace BusinessService.ServiceModels
             _domainExceptions.Add(ex);
         }
 
+        //[DataMember]
         public IEnumerable<DomainException> Exceptions => _domainExceptions; 
     }
 }
