@@ -1,5 +1,6 @@
 ﻿using Ninject.Activation;
 using SharedKernel.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,5 +12,7 @@ namespace BusinessService.ServiceModels
     {
         public string LeadSource { get; set; }
         public string  Leadmessage { get; set; }
+        public DateTime DateTimeReceived { get; set; }
+        public DateTime DateTimeSent { get; set; }
     }
 }

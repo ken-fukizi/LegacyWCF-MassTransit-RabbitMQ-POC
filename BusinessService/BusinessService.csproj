@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceBus\ApplicationBus.cs" />
     <Compile Include="ServiceBus\BrokerTopologyConfig.cs" />
     <Compile Include="ServiceBus\Commands\ISaveCustomerLeadCommand.cs" />
     <Compile Include="ServiceBus\Consumers\ConsumeException.cs" />
@@ -140,7 +141,9 @@
     <Compile Include="ServiceBus\Observers\PublishObserver.cs" />
     <Compile Include="ServiceBus\Observers\ReceiveObserver.cs" />
     <Compile Include="ServiceBus\Observers\SendObserver.cs" />
+    <Compile Include="ServiceModels\ResponseBase.cs" />
     <Compile Include="ServiceModels\SaveCustomerLeadRequest.cs" />
+    <Compile Include="ServiceModels\SaveCustomerLeadResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,6 +14,9 @@ namespace BusinessService
 
         [OperationContract]
         string GetData(int value);
+
+        [OperationContract(IsOneWay = true)]
+        void SaveCustomerLead(string leadSource, string leadMessage);
     }    
     
 }
