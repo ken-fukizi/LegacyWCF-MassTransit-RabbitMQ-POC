@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessService.ServiceModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -15,8 +16,8 @@ namespace BusinessService
         [OperationContract]
         string GetData(int value);
 
-        [OperationContract(IsOneWay = true)]
-        void SaveCustomerLead(string leadSource, string leadMessage);
+        [OperationContract]
+        SaveCustomerLeadResponse SaveCustomerLead(SaveCustomerLeadRequest customerLeadRequest);
     }    
     
 }

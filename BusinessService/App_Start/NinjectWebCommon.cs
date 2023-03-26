@@ -5,7 +5,7 @@ namespace BusinessService.App_Start
 {
     using System;
     using System.Web;
-
+    using BusinessService.ServiceBus;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -44,7 +44,7 @@ namespace BusinessService.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                kernel.Bind<ITester>().To<Tester>();
+                //kernel.Bind<ITester>().To<Tester>();
 
                 RegisterServices(kernel);
                 return kernel;
@@ -62,6 +62,8 @@ namespace BusinessService.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ITester>().To<Tester>();
+            kernel.Bind<ApplicationBus>();
         }        
     }
 }

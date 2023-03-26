@@ -12,7 +12,8 @@ namespace BusinessService.ServiceModels
     {
         public string LeadSource { get; set; }
         public string  Leadmessage { get; set; }
+        public long IdNumber { get; set; } 
         public DateTime DateTimeReceived { get; set; }
         public DateTime DateTimeSent { get; set; }
-    }
+    } 
 }
