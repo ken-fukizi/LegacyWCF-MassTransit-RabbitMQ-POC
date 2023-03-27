@@ -69,49 +69,8 @@ namespace BusinessService.App_Start
         {
             kernel.Bind<ILoggerFactory>().ToConstant(LoggerFactory.Create(builder => { builder.AddConsole(); }));
             kernel.Bind<ILogger>().ToProvider(typeof(Logger<>));
-            kernel.Bind<ITester>().To<Tester>();
-            
-
-            kernel.Bind<IConsumer<ISaveCustomerLeadCommand>>().To<SaveCustomerLeadCommandConsumer>();
-
-            //var busControl =  Bus.Factory.CreateUsingRabbitMq(cfg =>
-            //{
-            //    var host = cfg.Host(new Uri("rabbitmq://localhost"), h =>
-            //    {
-            //        h.Username("guest");
-            //        h.Password("guest");
-            //    });
-            //    cfg.AutoDelete = false;
-            //    cfg.Durable = true;
-
-
-            //    cfg.ReceiveEndpoint(host, "save_customer_lead", e =>
-            //    {
-            //        e.AutoDelete = false;
-            //        e.PrefetchCount = 5;
-            //        e.UseRetry(retry =>
-            //        {
-            //            retry.Interval(3, TimeSpan.FromMinutes(5));
-            //            retry.Handle<Exception>();
-            //        });
-            //        e.UseCircuitBreaker(breaker =>
-            //        {
-            //            breaker.Handle<Exception>();
-            //            breaker.TrackingPeriod = TimeSpan.FromMinutes(1);
-            //            breaker.TripThreshold = 10;
-            //            breaker.ActiveThreshold = 10;
-            //            breaker.ResetInterval = TimeSpan.FromMinutes(1);
-            //        });
-            //        e.UseRateLimit(
-            //                rateLimit: 10,
-            //                interval: TimeSpan.FromSeconds(1)
-            //            );
-            //        e.Consumer<SaveCustomerLeadCommandConsumer>(kernel);
-            //        EndpointConvention.Map<ISaveCustomerLeadCommand>(e.InputAddress);
-            //    });
-            //});
-
-            //busControl.Start();
+            kernel.Bind<ITester>().To<Tester>();          
+            kernel.Bind<IConsumer<ISaveCustomerLeadCommand>>().To<SaveCustomerLeadCommandConsumer>();           
 
             // The concrete values will have to be moved to appsettings
             kernel.Bind<IBus>().ToMethod(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -123,7 +82,6 @@ namespace BusinessService.App_Start
                 });
                 cfg.AutoDelete = false;
                 cfg.Durable = true;
-
 
                 cfg.ReceiveEndpoint(host, "save_customer_lead", e =>
                 {
