@@ -6,8 +6,10 @@ namespace BusinessService.App_Start
     using System;
     using System.Web;
     using BusinessService.ServiceBus;
+    using BusinessService.ServiceBus.Commands;
     using BusinessService.ServiceBus.Consumers;
     using BusinessService.ServiceBus.Observers;
+    using GreenPipes;
     using MassTransit;
     using Microsoft.Extensions.Logging;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -69,6 +71,7 @@ namespace BusinessService.App_Start
             kernel.Bind<ILogger>().ToProvider(typeof(Logger<>));
             kernel.Bind<ITester>().To<Tester>();
             
+            // The concrete values will have to be moved to appsettings
             kernel.Bind<IBus>().ToMethod(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 var host = cfg.Host(new Uri("rabbitmq://localhost"), h =>
@@ -76,12 +79,32 @@ namespace BusinessService.App_Start
                     h.Username("guest");
                     h.Password("guest");
                 });
-                cfg.AutoDelete = true;
+                cfg.AutoDelete = false;
                 cfg.Durable = true;
                 
                 cfg.ReceiveEndpoint(host, "save_customer_lead", e =>
                 {
+                    e.AutoDelete = false;
+                    e.PrefetchCount = 5;
+                    e.UseRetry(retry =>
+                    {
+                        retry.Interval(3, TimeSpan.FromMinutes(5));
+                        retry.Handle<Exception>();                       
+                    });
+                    e.UseCircuitBreaker(breaker =>
+                    {
+                        breaker.Handle<Exception>();
+                        breaker.TrackingPeriod = TimeSpan.FromMinutes(1);
+                        breaker.TripThreshold = 10;
+                        breaker.ActiveThreshold = 10;
+                        breaker.ResetInterval = TimeSpan.FromMinutes(1);
+                    });
+                    e.UseRateLimit(
+                            rateLimit: 10,
+                            interval: TimeSpan.FromSeconds(1)
+                        );                   
                     e.Consumer<SaveCustomerLeadCommandConsumer>(kernel);
+                    EndpointConvention.Map<ISaveCustomerLeadCommand>(e.InputAddress);
                 });
             })).InSingletonScope();
 
